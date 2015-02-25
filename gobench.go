@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"crypto/tls"
 	"flag"
 	"fmt"
 	"io"
@@ -17,6 +16,9 @@ import (
 	"sync"
 	"syscall"
 	"time"
+
+	"github.com/devsisters/goquic"
+	"github.com/devsisters/gospdyquic"
 )
 
 var (
@@ -244,11 +246,7 @@ func TimeoutDialer(result *Result, connectTimeout, readTimeout, writeTimeout tim
 func MyClient(result *Result, connectTimeout, readTimeout, writeTimeout time.Duration) *http.Client {
 
 	return &http.Client{
-		Transport: &http.Transport{
-			Dial:              TimeoutDialer(result, connectTimeout, readTimeout, writeTimeout),
-			TLSClientConfig:   &tls.Config{InsecureSkipVerify: true},
-			DisableKeepAlives: !keepAlive,
-		},
+		Transport: gospdyquic.NewRoundTripper(),
 	}
 }
 
@@ -303,6 +301,8 @@ func client(configuration *Configuration, result *Result, done *sync.WaitGroup) 
 }
 
 func main() {
+	goquic.Initialize()
+	//	goquic.SetLogLevel(-1)
 
 	startTime := time.Now()
 	var done sync.WaitGroup
