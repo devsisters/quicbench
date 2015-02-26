@@ -28,6 +28,7 @@ var (
 	url              string
 	urlsFilePath     string
 	keepAlive        bool
+	keepQuicConn     bool
 	turnonLog        bool
 	postDataFilePath string
 	connectTimeout   int
@@ -88,6 +89,7 @@ func init() {
 	flag.StringVar(&url, "u", "", "URL")
 	flag.StringVar(&urlsFilePath, "f", "", "URL's file path (line seperated)")
 	flag.BoolVar(&keepAlive, "k", true, "Do HTTP keep-alive")
+	flag.BoolVar(&keepQuicConn, "qk", true, "Reuse Quic Connection ")
 	flag.StringVar(&postDataFilePath, "d", "", "HTTP POST data file path")
 	flag.Int64Var(&period, "t", -1, "Period of time (in seconds)")
 	flag.IntVar(&connectTimeout, "tc", 5000, "Connect timeout (in milliseconds)")
@@ -248,7 +250,7 @@ func TimeoutDialer(result *Result, connectTimeout, readTimeout, writeTimeout tim
 func MyClient(result *Result, connectTimeout, readTimeout, writeTimeout time.Duration) *http.Client {
 
 	return &http.Client{
-		Transport: gospdyquic.NewRoundTripper(),
+		Transport: gospdyquic.NewRoundTripper(keepQuicConn),
 	}
 }
 
