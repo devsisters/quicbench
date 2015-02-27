@@ -280,6 +280,7 @@ func client(configuration *Configuration, result *Result, done *sync.WaitGroup) 
 			result.requests++
 
 			if err != nil {
+				fmt.Println(err)
 				result.networkFailed++
 				continue
 			}
