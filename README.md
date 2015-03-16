@@ -43,11 +43,10 @@ CGO_LDFLAGS="-L$GOPATH/src/github.com/devsisters/goquic/lib/linux_amd64" go buil
    or toy server implementation in Chromium [here](http://www.chromium.org/quic/playing-with-quic)
 2. run quicbench for HTTP GET
 
-```$>go run quicbench.go -u http://localhost:80 -k=true -c 50 -r=10 -t 10```
-
+   ```$>go run quicbench.go -u http://localhost:80 -k=true -c 50 -r=10 -t 10```
 3. run quicbench for HTTP POST
 
-```$>go run quicbench.go -u http://localhost:80 -k=true -c 50 -r=10 -t 10 -d /tmp/post```
+   ```$>go run quicbench.go -u http://localhost:80 -k=true -c 50 -r=10 -t 10 -d /tmp/post```
 
 
 Notes
@@ -76,4 +75,5 @@ Author
 ================
 
 Originally written by Uri Shamay (shamayuri@gmail.com)
+
 QUIC protocol adopted by Brian Sung-Jin Hong (sungjinhong@devsisters.com) and Joonsung Lee (joonsung@devsisters.com)
