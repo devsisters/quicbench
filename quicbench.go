@@ -306,8 +306,6 @@ func client(configuration *Configuration, result *Result, done *sync.WaitGroup) 
 }
 
 func main() {
-	goquic.Initialize()
-
 	startTime := time.Now()
 	var done sync.WaitGroup
 	results := make(map[int]*Result)
