@@ -61,25 +61,25 @@ type MyConn struct {
 }
 
 func (this *MyConn) Read(b []byte) (n int, err error) {
-	len, err := this.Conn.Read(b)
+	n, err = this.Conn.Read(b)
 
 	if err == nil {
-		this.result.readThroughput += int64(len)
+		this.result.readThroughput += int64(n)
 		this.Conn.SetReadDeadline(time.Now().Add(this.readTimeout))
 	}
 
-	return len, err
+	return
 }
 
 func (this *MyConn) Write(b []byte) (n int, err error) {
-	len, err := this.Conn.Write(b)
+	n, err = this.Conn.Write(b)
 
 	if err == nil {
-		this.result.writeThroughput += int64(len)
+		this.result.writeThroughput += int64(n)
 		this.Conn.SetWriteDeadline(time.Now().Add(this.writeTimeout))
 	}
 
-	return len, err
+	return
 }
 
 func init() {
